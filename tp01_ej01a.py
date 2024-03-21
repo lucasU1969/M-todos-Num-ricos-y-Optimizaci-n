@@ -19,6 +19,19 @@ def error_absoluto(f1, f2, intervalo:list) -> list:
 def error_absoluto_máximo( f1, f2, intervalo:list) -> float:
     return max(error_absoluto(f1,f2, intervalo))
 
+def lagrangiano( x:float, coords_x:list[float], coords_y:list[float]) -> float:
+    # tiene que evaluar el polinomio de lagrange en el punto x.
+    # suma de todas las bases multiplicadas por f(xk)
+
+    return
+
+def bases_del_lagrangiano( x:float, coords_x:list[float]) -> float:
+    numerador = 1
+    # for i in coords_x:
+    #     for j in coords_x:
+            
+    denominador = 1
+    return numerador/denominador
 
 coords_x = np.linspace(inicio, fin, numero_elementos)
 coords_y = fa(coords_x)
