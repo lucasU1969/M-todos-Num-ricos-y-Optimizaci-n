@@ -23,17 +23,23 @@ numero_elementos = 1000  # cantidad de divisiones del intervalo
 coords_x = np.linspace(inicio, fin, numero_elementos)
 coords_y = fa(coords_x)
 
-for i in range(2,11):
+error_c_puntos = []
+
+for i in range(2,21):
     c_x3 = np.linspace( inicio, fin, i)
     c_y3 = fa(c_x3)
     pol_lagrange = scipy.interpolate.lagrange( c_x3, c_y3)
     print(i, error_absoluto_máximo(fa, pol_lagrange, coords_x))
-    if i==7:
+    error_c_puntos.append(error_absoluto_máximo(fa, pol_lagrange,coords_x))
+    if i==20:
         plt.figure(figsize=(8, 6))
         plt.plot(coords_x, coords_y)
         plt.plot(coords_x, pol_lagrange(coords_x))
 
 plt.show()
 
+plt.plot( range(2, 21), error_c_puntos)
+
+plt.show()
 
 

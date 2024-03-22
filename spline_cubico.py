@@ -2,29 +2,39 @@ import numpy as np
 import scipy.interpolate
 import matplotlib.pyplot as plt
 
-# Definir la función a interpolar
 def fa(x:float) -> float:
     return (0.3**abs(x))*np.sin(4*x) - np.tanh(2*x) + 2
 
-coords_x = np.linspace(-4, 4, 100)
+def fb(x: float) -> float:
+    return 1
+
+def error_absoluto(f1, f2, intervalo:list) -> list:
+    return f1(intervalo) - f2(intervalo)
+
+def error_absoluto_máximo( f1, f2, intervalo:list) -> float:
+    return max(error_absoluto(f1,f2, intervalo))
+
+
+# esto da la función fa
+inicio = -4  # Valor inicial del intervalo
+fin = 4    # Valor final del intervalo
+numero_elementos = 1000  # cantidad de divisiones del intervalo
+coords_x = np.linspace(inicio, fin, numero_elementos)
 coords_y = fa(coords_x)
 
-coords_x2 = coords_x[::10]
-coords_y2 = coords_y[::10]
-# Crear objeto de interpolación cúbica
-interp_cubica = scipy.interpolate.CubicSpline(coords_x2, coords_y2)
+error_c_puntos = []
+for i in range(2,21):
+    c_x3 = np.linspace( inicio, fin, i)
+    c_y3 = fa(c_x3)
+    inter_cubica = scipy.interpolate.CubicSpline( c_x3, c_y3)
+    print(i, error_absoluto_máximo(fa, inter_cubica, coords_x))
+    error_c_puntos.append(error_absoluto_máximo(fa, inter_cubica, coords_x))
+    if i==10:
+        plt.figure(figsize=(8, 6))
+        plt.plot(coords_x, coords_y)
+        plt.plot(coords_x, inter_cubica(coords_x))
+        plt.show()
 
-# Definir puntos para la interpolación
-x_interp = np.linspace(-4, 4, 100)
-y_interp = interp_cubica(x_interp)
 
-# Visualización de los datos originales y la interpolación cúbica
-plt.figure(figsize=(8, 6))
-plt.plot(coords_x, coords_y, '-', label='Datos originales')
-plt.plot(x_interp, y_interp, '-', label='Interpolación cúbica')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Interpolación Cúbica')
-plt.legend()
-plt.grid(True)
+plt.plot(range(2,21), error_c_puntos)
 plt.show()
