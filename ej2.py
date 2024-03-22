@@ -7,12 +7,12 @@ def max_distance(x1:list[float], y1:list[float], x2:list[float], y2:list[float])
     max_dis = 0
     for i in range(len(x1)):
         if i == 0 or max_dis < np.sqrt((x1[i] - x2[i])**2 + (y1[i] - y2[i])**2):
-            max_x = x1[i]
-            max_y = y1[i]
-            max_x2 = x2[i]
-            max_y2 = y2[i]
+            # max_x = x1[i]
+            # max_y = y1[i]
+            # max_x2 = x2[i]
+            # max_y2 = y2[i]
             max_dis = np.sqrt((x1[i] - x2[i])**2 + (y1[i] - y2[i])**2)
-    print("(", max_x, ", ", max_y, ") y (", max_x2, ", ", max_y2, ")")
+    # print("(", max_x, ", ", max_y, ") y (", max_x2, ", ", max_y2, ")")
     return max_dis
 
 # gráfico del ground truth
@@ -71,11 +71,11 @@ plt.plot( 8.001721605855845 ,  0.9547441622189221, marker='o')
 
 # interpolo la segunda trayectoria usando splines
 w = range(0, 4) 
-intervalo = np.linspace(0, 4, 100)
+intervalo = np.linspace(0, 3, 100)
 
 splines2_x = sci.CubicSpline(w, coords2_x)
 splines2_y =sci.CubicSpline(w, coords2_y)
-plt.plot(splines2_x(intervalo), splines2_y(intervalo))
+plt.plot(splines2_x(intervalo), splines2_y(intervalo), label="trayectoria2")
 
 # grafico la segunda trayectoria (splines de grado 1)
 plt.plot(coords2_x, coords2_y)
