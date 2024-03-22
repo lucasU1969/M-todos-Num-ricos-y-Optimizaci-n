@@ -3,7 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.interpolate as spi
-import sympy as sp
+import sympy as spc
 
 #definimos la funcion
 def fa(x:float) -> float:
@@ -12,7 +12,9 @@ def fa(x:float) -> float:
 
 
 def puntos_criticos(f, x): 
-    
+    # usar bisección o algún otro método de búsqueda de raíces para encontrar raíces de la derivada. 
+    # si no usar bisección y aproximar el error  
+
     return puntos_criticos
 
 coords_x = np.linspace(-4, 4, 100)
