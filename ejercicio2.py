@@ -16,7 +16,7 @@ def max_distance(x1:list[float], y1:list[float], x2:list[float], y2:list[float])
     return max_dis
 
 # gráfico del ground truth
-with open("mnyo_ground_truth.csv", "r") as file:
+with open("mnyo_mediciones.csv", "r") as file:
     lines = file.readlines()
     gt_x = []
     gt_y = []
@@ -24,7 +24,7 @@ with open("mnyo_ground_truth.csv", "r") as file:
         x , y = i.split()
         gt_x.append(float(x))
         gt_y.append(float(y))
-
+    print(gt_x[9])
     plt.plot(gt_x, gt_y)
 
 # obtener las coordenadas x e y de la trayectoria.

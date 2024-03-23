@@ -1,6 +1,8 @@
 import numpy as np
 import scipy.interpolate
 import matplotlib.pyplot as plt
+import scipy.interpolate as spi
+
 
 def fa(x:float) -> float:
     return (0.3**abs(x))*np.sin(4*x) - np.tanh(2*x) + 2
@@ -24,10 +26,13 @@ def calc_puntos_criticos(f, x:list[float]) -> list[float]:
     return pc
 
 
-inicio = -4  # Valor inicial del intervalo
-fin = 4    # Valor final del intervalo
-numero_elementos = 10000  # cantidad de divisiones del intervalo
-coords_x = np.linspace(inicio, fin, numero_elementos)
+def puntos_criticos(f, x): 
+    # usar bisección o algún otro método de búsqueda de raíces para encontrar raíces de la derivada. 
+    # si no usar bisección y aproximar el error  
+
+    return
+
+coords_x = np.linspace(-4, 4, 100)
 coords_y = fa(coords_x)
 
 
