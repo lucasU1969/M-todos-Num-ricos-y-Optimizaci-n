@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import scipy.interpolate as sci
 import numpy as np
 from ej1a import norma
+import scipy.optimize as opt
 
 def max_distance(x1:list[float], y1:list[float], x2:list[float], y2:list[float]) -> float:
     # las listas recibidas tienen la misma longitud
@@ -94,10 +95,22 @@ plt.plot(splines2_x(intervalo), splines2_y(intervalo), label="trayectoria2")
 # la primera coordenada de la trayectoria1 tiene que ser igual a la de la trayectoria2
 # la segunda coordenada de la trayectoria1 tiene que ser igual a la de la trayectoria2
 
+
 coef1_x = splines_x.c
 coef1_y = splines_y.c
 coef2_x = splines2_x.c
 coef2_y = splines2_y.c
+
+def intersección_x(x) -> float:
+    return splines_x(x) - splines2_x(x)
+
+def intersección_y(x) -> float:
+    return splines_y(x) - splines2_y(x)
+
+root_x = opt.newton(intersección_x, 10)
+root_y = opt.newton(intersección_y, splines_y(root_x))
+
+plt.scatter(root_x, root_y, color='b', marker='o', label='intersección')
 
 
 plt.legend()
