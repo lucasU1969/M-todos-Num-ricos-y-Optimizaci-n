@@ -65,9 +65,6 @@ def main():
 
     plt.plot()
 
-    print(cant_puntos)
-    print(cant_puntos_p)
-
     # obs para reducir el mínimo el error máximo conviene 7 puntos pero para reducir el error promedio conviene usar 8 puntos
 
     # tomo los puntos para hacer el polinomio de lagrange
@@ -91,9 +88,8 @@ def main():
 
     plt.show()
 
-main()
 
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

@@ -58,6 +58,8 @@ def graf_error_prom_n_puntos(f, intervalo, inicio, fin):
     plt.plot(range(2, 21), error)
     plt.xlabel("Cantidad de puntos tomados por el polinomio")
     plt.ylabel("Error promedio respecto a la función")
+
+
 # esto da la función fa
 inicio = -4  # Valor inicial del intervalo
 fin = 4    # Valor final del intervalo
