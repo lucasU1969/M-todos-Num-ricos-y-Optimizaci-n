@@ -18,6 +18,28 @@ def distancia_promedio(x1:list[float], y1:list[float], x2:list[float], y2:list[f
         distancias += norma(x1[i], y1[i], x2[i], y2[i])
     return distancias/len(x1)
 
+def t1x_pol_intersec(x:float) -> float:
+    # polinomio de la x de la primera trayectoria
+    return -7.66296299*(x**3) + 17.02260561*(x**2) + 1.88588466*x + 1.62372089
+
+def t1y_pol_intersec(x:float) -> float:
+    # polinomio de la y de la primera trayectoria
+    return -0.014973*(x**3) + -0.03458137*(x**2) + 0.96540245*x + 2.91025123
+
+def t2x_pol_intersec(x:float) -> float:
+    # polinmio de la x de la segunda trayectoria
+    return -0.16666667*(x**3) + 1.5*(x**2) + 3.66666667*x + 5
+
+def t2y_pol_intersec(x:float) -> float:
+    # polinomio de la y de la segunda trayectoria
+    return -0.05*(x**3) + 0.65*(x**2) + -2.6*x + 5
+
+def intersección_x(x:float) -> float:
+    return t1x_pol_intersec(x) - t2x_pol_intersec(x)
+
+def intersección_y(x:float) -> float:
+    return t1y_pol_intersec(x) - t2y_pol_intersec(x)
+
 # gráfico del ground truth
 with open("mnyo_ground_truth.csv", "r") as file:
     lines = file.readlines()
@@ -66,7 +88,7 @@ print("error promedio con polinomio de lagrange:", distancia_promedio(gt_x, gt_x
 # acá lo voy a hacer con splines lineales
 spline_l_x = sci.interp1d(t, coords_x)
 spline_l_y = sci.interp1d(t, coords_y) 
-# plt.plot(spline_l_x(intervalo), spline_l_y(intervalo), label="splines lineales")
+# plt.plot(spline_l_x(intervalo1), spline_l_y(intervalo1), label="splines lineales")
 print("error máximo con splines lineales:", max_distance(gt_x, gt_y, spline_l_x(intervalo1), spline_l_y(intervalo1)))
 print("error promedio con splines lineales:", distancia_promedio(gt_x, gt_y, spline_l_x(intervalo1), spline_l_y(intervalo1)))
 
@@ -86,31 +108,23 @@ splines2_x = sci.CubicSpline(w, coords2_x)
 splines2_y =sci.CubicSpline(w, coords2_y)
 plt.plot(splines2_x(intervalo2), splines2_y(intervalo2), label="trayectoria2") 
 
-def polinomiox101(x:float) -> float:
-    return 8.24279675*(x**3) + -32.4341749*(x**2) + 32.70902324*x 
 
-def polinomioy101(x:float) -> float:
-    return 0.06462369*(x**3) + -0.42232351*(x**2) + 1.87921222*x + 0.32413132
-i = np.linspace(0, 1, 10)
-plt.plot(polinomiox101(i), polinomioy101(i), label="spline1")
+# splines que me dan la intersección
+interv = np.linspace(0, 1, 10)
+plt.plot(t1x_pol_intersec(interv), t1y_pol_intersec(interv), label="spline1_intersección")
+plt.plot(t2x_pol_intersec(interv), t2y_pol_intersec(interv), label="spline2_intersección")
 
+# la coordenada x de la primera trayectoria tiene que ser igual a la de la segunda
+# la coordenada y de la primera trayectoria tiene que ser igual a la de la segunda
+# utilizo el método de newton para calcular la raíz de las intersecciones.
+root_x = t1x_pol_intersec(opt.newton(intersección_x, 0.5))
+root_y = t1y_pol_intersec(opt.newton(intersección_y, 0.5))
 
+print(f"intersección: ({root_x}, {root_y})")
+
+plt.scatter(root_x, root_y, label="intersección")
 
 plt.legend()
 plt.show()
-# grafico la segunda trayectoria (splines de grado 1)
-# plt.plot(coords2_x, coords2_y)
 
-
-
-# falta la intersección entre la interpolación de la trayectoria1 y la trayectoria2
-# la primera coordenada de la trayectoria1 tiene que ser igual a la de la trayectoria2
-# la segunda coordenada de la trayectoria1 tiene que ser igual a la de la trayectoria2
-coef1_x = splines_x.c
-coef1_y = splines_y.c
-coef2_x = splines2_x.c
-coef2_y = splines2_y.c
-
-print(coef1_x)
-print(coef1_y)
 
