@@ -128,7 +128,7 @@ def ev_error_splines_no_equiespaciados(x, y):
         x_censadas = np.linspace(-2.478136535, 2.478136535, i)
         x_censadas = x_censadas + (1/10)*np.power(x_censadas, 3)
         y_censadas = fa(x_censadas)
-        spline = sci.CubicSpline(x_censadas, y_censadas)
+        spline = sci.CubicSpline(x_censadas, y_censadas) 
         errores.append(error_promedio(x, y, x, spline(x)))
     return errores  
 

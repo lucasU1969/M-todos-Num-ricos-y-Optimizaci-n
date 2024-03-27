@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import scipy.interpolate as sci
 import numpy as np
-from ej1a import norma
+from ej1a import *
 import scipy.optimize as opt
 
 def max_distance(x1:list[float], y1:list[float], x2:list[float], y2:list[float]) -> float:
@@ -78,15 +78,16 @@ t = range(0, 10)
 intervalo1 = np.linspace(0,9, 100)
 
 # acá esta hecho el lagrangiano todavía
-plt.title("Intersección de las trayectorias")
-plt.xlabel("x")
-plt.ylabel("y")
+plt.title("Error de las interpolaciones sobre la trayectoria")
+plt.xlabel("t")
+plt.ylabel("Error absoluto")
 lagrangiano_x = sci.lagrange(t, coords_x)
 lagrangiano_y = sci.lagrange(t, coords_y)
 # plt.scatter(coords_x, coords_y,color='k', label="Puntos censados de la trayectoria")
 # plt.plot(lagrangiano_x(intervalo1), lagrangiano_y(intervalo1), label="Polinomio de lagrange")
 print("error máximo con polinomio de lagrange:", max_distance(gt_x, gt_x, lagrangiano_x(intervalo1), lagrangiano_y(intervalo1)))
 print("error promedio con polinomio de lagrange:", distancia_promedio(gt_x, gt_x, lagrangiano_x(intervalo1), lagrangiano_y(intervalo1)))
+plt.plot(intervalo1, errores_sobre_dom(gt_x, gt_y, lagrangiano_x(intervalo1), lagrangiano_y(intervalo1)), label='Polinomio de Lagrange')
 
 
 # acá lo voy a hacer con splines lineales
@@ -95,13 +96,17 @@ spline_l_y = sci.interp1d(t, coords_y)
 # plt.plot(spline_l_x(intervalo1), spline_l_y(intervalo1), label="Splines lineales")
 print("error máximo con splines lineales:", max_distance(gt_x, gt_y, spline_l_x(intervalo1), spline_l_y(intervalo1)))
 print("error promedio con splines lineales:", distancia_promedio(gt_x, gt_y, spline_l_x(intervalo1), spline_l_y(intervalo1)))
+plt.plot(intervalo1, errores_sobre_dom(gt_x, gt_y, spline_l_x(intervalo1), spline_l_y(intervalo1)), label='Splines Lineales')
 
 # hago splines cúbicos
 splines_x = sci.CubicSpline(t, coords_x)
 splines_y = sci.CubicSpline(t, coords_y)
-plt.plot(splines_x(intervalo1), splines_y(intervalo1),label="T1 interpolada con splines cúbicos")
+# plt.plot(splines_x(intervalo1), splines_y(intervalo1),label="T1 interpolada con splines cúbicos")
 print("error máximo con splines cúbicos:", max_distance(gt_x, gt_y, splines_x(intervalo1), splines_y(intervalo1)))
 print("error promedio con splines cúbicos:", distancia_promedio(gt_x, gt_y, splines_x(intervalo1), splines_y(intervalo1)))
+plt.plot(intervalo1, errores_sobre_dom(gt_x, gt_y, splines_x(intervalo1), splines_y(intervalo1)), label='Splines Cúbicos')
+
+
 
 
 # interpolo la segunda trayectoria usando splines
@@ -110,14 +115,14 @@ intervalo2 = np.linspace(0, 3, 100)
 
 splines2_x = sci.CubicSpline(w, coords2_x)
 splines2_y =sci.CubicSpline(w, coords2_y)
-plt.plot(splines2_x(intervalo2), splines2_y(intervalo2), label="T2 interpolada con splines cúbicos") 
+# plt.plot(splines2_x(intervalo2), splines2_y(intervalo2), label="T2 interpolada con splines cúbicos") 
 
 
 # splines que me dan la intersección
 interv = np.linspace(0, 1, 10)
 
-plt.plot(t1x_pol_intersec(interv), t1y_pol_intersec(interv), label="polinomio de la intersección (t1)")
-plt.plot(t2x_pol_intersec(interv), t2y_pol_intersec(interv), label="Polinomio de la intersección (t2)")
+# plt.plot(t1x_pol_intersec(interv), t1y_pol_intersec(interv), label="polinomio de la intersección (t1)")
+# plt.plot(t2x_pol_intersec(interv), t2y_pol_intersec(interv), label="Polinomio de la intersección (t2)")
 
 
 root_x = t1x_pol_intersec(opt.bisect(intersección_x, 0, 1))
@@ -126,7 +131,7 @@ root_y = t1y_pol_intersec(opt.bisect(intersección_y, 0, 1))
 
 print(f"intersección: ({root_x}, {root_y})")
 
-plt.scatter(root_x, root_y, label="intersección", color='k')
+# plt.scatter(root_x, root_y, label="intersección", color='k')
 
 plt.legend()
 plt.show()
