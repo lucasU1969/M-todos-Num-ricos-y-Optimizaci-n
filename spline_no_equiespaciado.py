@@ -13,18 +13,23 @@ def fa(x:float) -> float:
 
 coords_x = np.linspace(-4, 4, 100)
 coords_y = fa(coords_x)
-plt.plot(coords_x, coords_y, label="Fa")
+
+plt.title("Interpolación por splines cúbicos")
+plt.plot(coords_x, coords_y, label="Función original", color='k')
 
 
+errores_equi = ej1a.errores_relativos_equiespaciados(coords_x, coords_y)
 
-# x_censadas = np.linspace(-2.478136535, 2.478136535, 8)
-# x_censadas = x_censadas + (1/10)*np.power(x_censadas, 3)
-# y_censadas = fa(x_censadas)
 
-# plt.scatter(x_censadas, [0]*8)
+x_censadas = np.linspace(-2.478136535, 2.478136535, 8)
+x_censadas = x_censadas + (1/10)*np.power(x_censadas, 3)
+y_censadas = fa(x_censadas)
 
-# splines_cúbicos = spi.CubicSpline(x_censadas, y_censadas)
-# plt.plot(coords_x, splines_cúbicos(coords_x), label="Splines Cúbicos")
+plt.xlabel('x')
+plt.ylabel('y')
+plt.scatter(x_censadas, y_censadas, label="Puntos no equidistantes", color='b')
+splines_cúbicos = spi.CubicSpline(x_censadas, y_censadas, bc_type='clamped')
+plt.plot(coords_x, splines_cúbicos(coords_x), label="Splines Cúbicos")
 
-# plt.legend()
-# plt.show()
+plt.legend()
+plt.show()

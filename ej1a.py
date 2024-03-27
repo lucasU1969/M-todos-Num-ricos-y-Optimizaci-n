@@ -130,52 +130,70 @@ def ev_error_splines_no_equiespaciados(x, y):
         y_censadas = fa(x_censadas)
         spline = sci.CubicSpline(x_censadas, y_censadas)
         errores.append(error_promedio(x, y, x, spline(x)))
-    return errores
+    return errores  
 
 def main():
 
-    coords_x = np.linspace(-4, 4, 100)
+    coords_x = np.linspace(-4, 4, 800)
     coords_y = fa(coords_x)
 
     dataset_x = np.linspace(-4, 4, 8)
     dataset_y = fa(dataset_x)
 
+    dataset1_x = np.linspace(-4, 4, 12)
+    dataset1_y = fa(dataset1_x)
 
-    errores_prom = errores_promedio(coords_x, coords_y)
+    dataset2_x = np.linspace(-4, 4, 16)
+    dataset2_y = fa(dataset2_x)
+
+    # errores_prom = errores_promedio(coords_x, coords_y)
     # OBS IMPORTANTE: PARA LA COMPUTADORA EL PROMEDIO DEL ERROR RELATIVO ES 0
     # errores_abs = errores_absolutos(coords_x, coords_y)
     # plt.yscale('log')
-    plt.plot(range(2,21), errores_prom)
+    # plt.plot(range(2,21), errores_prom)
     # plt.plot(range(2,21), errores_abs)
-    plt.show()
+    # plt.show()
 
-    plt.plot()
+    # plt.plot()
 
     lagrangiano = sci.lagrange(dataset_x, dataset_y)
+    lagrangiano1 = sci.lagrange(dataset1_x, dataset1_y)
+    lagrangiano2 = sci.lagrange(dataset2_x, dataset2_y)
 
-    print(error_relativo_promedio(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
+    plt.title("Ejemplo del efecto de Runge")
+    plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano(coords_x)), label='Error del polinomio de grado 7')
+    plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano1(coords_x)), label='Error del polinomio de grado 11')
+    plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano2(coords_x)), label='Error del polinomio de grado 15')
+    plt.xlabel('x')
+    plt.ylabel('Error absoluto')
+    plt.yscale('symlog')
+
+
+    # print(error_relativo_promedio(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
 
     # error_absoluto_máximo = error_máximo(coords_x, coords_y, coords_x, lagrangiano(coords_x))
 
     # error_prom = error_promedio(coords_x, coords_y, coords_x, lagrangiano(coords_x))
     # error_pro = np.mean(array(errores_absolutos))
 
-    plt.title('Error absoluto sobre el intervalo')
-    plt.xlabel('x')
-    plt.ylabel('Error')
-    plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano(coords_x)), label='Error absoluto sobre el intervalo')
-    plt.scatter(dataset_x, [0]*8, label='Puntos equiespaciados', color='k')
-    plt.legend()
-    plt.show()
+    # plt.title('Error absoluto sobre el intervalo')
+    # plt.xlabel('x')
+    # plt.ylabel('Error')
+    # plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano(coords_x)), label='Error absoluto sobre el intervalo')
+    # plt.scatter(dataset_x, [0]*8, label='Puntos equiespaciados', color='k')
+    # plt.legend()
+    # plt.show()
 
-    plt.title("Interpolación por polinomio de Lagrange")
-    plt.plot(coords_x, coords_y, color='k', label='Función original')
-    plt.plot(coords_x, lagrangiano(coords_x), label='Polinomio de Lagrange de grado 7')
-    plt.scatter(dataset_x, dataset_y, label='Puntos equiespaciados')
-    plt.xlabel('x')
-    plt.ylabel('y')
+    # plt.title("Interpolación por polinomio de Lagrange")
+    # plt.plot(coords_x, coords_y, color='k', label='Función original')
+    # plt.plot(coords_x, lagrangiano(coords_x), label='Polinomio de Lagrange de grado 7')
+    # plt.scatter(dataset_x, dataset_y, label='Puntos equiespaciados')
+    # plt.xlabel('x')
+    # plt.ylabel('y')
 
+# quiero graficar la evolución del error sobre el dominio cuando n cambia
     
+
 
 
     plt.legend()
