@@ -8,17 +8,17 @@ def main():
     coords_y = fa(coords_x)
     puntos = [int(k) for k in range(2,21)]
 
-    # plt.title("Puntos equiespaciados vs no equiespaciados para Lagrange de grado 7")
-    # plt.plot(puntos, errores_promedio_no_equiespaciados(coords_x, coords_y), label="Error promedio con puntos equiespaciados")
-    # plt.plot(puntos, errores_promedio(coords_x, coords_y), label="Error promedio por puntos no equiespaciados")
-    # plt.ylabel("Error promedio")
-    # plt.xlabel("Cantidad de puntos que toma el polinomio")
-    # plt.legend()
-    # plt.yscale('log')
-    # plt.xscale('linear')
-    # plt.xticks(np.arange(2, 21, step=1))
+    plt.title("Puntos equiespaciados vs no equiespaciados para Lagrange de grado 7")
+    plt.plot(puntos, errores_promedio_no_equiespaciados(coords_x, coords_y), label="Error promedio con puntos no equiespaciados")
+    plt.plot(puntos, errores_promedio(coords_x, coords_y), label="Error promedio por puntos equiespaciados")
+    plt.ylabel("Error promedio")
+    plt.xlabel("Cantidad de puntos que toma el polinomio")
+    plt.legend()
+    plt.yscale('log')
+    plt.xscale('linear')
+    plt.xticks(np.arange(2, 21, step=1))
     
-    # plt.show()
+    plt.show()
 
 
 
