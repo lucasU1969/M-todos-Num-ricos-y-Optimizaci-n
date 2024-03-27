@@ -50,7 +50,7 @@ with open("mnyo_ground_truth.csv", "r") as file:
         gt_x.append(float(x))
         gt_y.append(float(y))
 
-# plt.plot(gt_x, gt_y, color="k", label="trayectoria")
+plt.plot(gt_x, gt_y, color="k", label="trayectoria")
 
 # obtener las coordenadas x e y de la trayectoria.
 # estos son los únicos puntos de la trayectoria que conozco.
@@ -119,6 +119,8 @@ plt.plot(t2x_pol_intersec(interv), t2y_pol_intersec(interv), label="spline2_inte
 # utilizo el método de newton para calcular la raíz de las intersecciones.
 root_x = t1x_pol_intersec(opt.newton(intersección_x, 0.5))
 root_y = t1y_pol_intersec(opt.newton(intersección_y, 0.5))
+
+
 
 print(f"intersección: ({root_x}, {root_y})")
 

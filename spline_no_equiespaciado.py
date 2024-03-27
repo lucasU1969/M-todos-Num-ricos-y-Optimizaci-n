@@ -1,45 +1,30 @@
-#el crierio seria tomar los puntos criticos de la funcon y luego hacer un spline con ellos
-#para esto se usara la libreria scipy
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.interpolate as spi
-import sympy as spc
+import ej1a
+
+# quiero graficar la evolución del error de los splines equiespaciados y no equiespaciados.
 
 #definimos la funcion
 def fa(x:float) -> float:
-    return (0.3**abs(x))*np.sin(4*x) - np.tanh(2*x) + 2
+    return (0.3**(np.abs(x)))*np.sin(4*x) - np.tanh(2*x) + 2
 
 
-
-def puntos_criticos(f, x): 
-    # usar bisección o algún otro método de búsqueda de raíces para encontrar raíces de la derivada. 
-    # si no usar bisección y aproximar el error  
-
-    return puntos_criticos
 
 coords_x = np.linspace(-4, 4, 100)
 coords_y = fa(coords_x)
+plt.plot(coords_x, coords_y, label="Fa")
 
 
-#encontramos los puntos criticos
-puntos_criticos = puntos_criticos(fa, coords_x)
-coords_x2 = puntos_criticos
-coords_y2 = fa(coords_x2)
 
-#creamos el objeto de interpolacion
-interp_cubica = spi.CubicSpline(coords_x2, coords_y2)
+# x_censadas = np.linspace(-2.478136535, 2.478136535, 8)
+# x_censadas = x_censadas + (1/10)*np.power(x_censadas, 3)
+# y_censadas = fa(x_censadas)
 
-#definimos los puntos para la interpolacion
-x_interp = np.linspace(-4, 4, 100)
-y_interp = interp_cubica(x_interp)
+# plt.scatter(x_censadas, [0]*8)
 
-#visualizamos los datos originales y la interpolacion cubica
-plt.figure(figsize=(8, 6))
-plt.plot(coords_x, coords_y, '-', label='Datos originales')
-plt.plot(x_interp, y_interp, '-', label='Interpolación cúbica')
-plt.xlabel('X')
-plt.ylabel('Y')
-plt.title('Interpolación Cúbica')
-plt.legend()
-plt.grid(True)
-plt.show()
+# splines_cúbicos = spi.CubicSpline(x_censadas, y_censadas)
+# plt.plot(coords_x, splines_cúbicos(coords_x), label="Splines Cúbicos")
+
+# plt.legend()
+# plt.show()
