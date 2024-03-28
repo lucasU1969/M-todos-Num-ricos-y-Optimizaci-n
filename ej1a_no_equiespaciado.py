@@ -20,11 +20,11 @@ def main():
 
     lagrangiano =sci.lagrange(x, y)
     
-    print("error absoluto para", 8,"puntos:", error_máximo(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
-    print("error promedio para", 8, "puntos:", error_promedio(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
+    # print("error absoluto para", 8,"puntos:", error_máximo(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
+    # print("error promedio para", 8, "puntos:", error_promedio(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
     
-    plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
-    plt.show()
+    # plt.plot(coords_x, errores_sobre_dom(coords_x, coords_y, coords_x, lagrangiano(coords_x)))
+    # plt.show()
 
     # plt.title("Interpolación por polinomio de Lagrange no equiespaciado")
     # plt.plot(coords_x, coords_y, color='k', label='Función original')
