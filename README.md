@@ -1,1 +1,0 @@
-# M-todos-Num-ricos-y-Optimizaci-n
