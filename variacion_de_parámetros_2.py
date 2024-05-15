@@ -27,8 +27,9 @@ def rk4_for_ode_system(h:float, odes:list, initial_conditions:list, t0:float, tm
 
     """
     approximations = np.array(np.array([initial_conditions]))
+
     t = t0 + h
-    while t < tmax:
+    while t <= tmax:
         k1 = h*np.array([odes[0](approximations[-1][0], approximations[-1][1]), odes[1](approximations[-1][0], approximations[-1][1])])
         k2 = h*np.array([odes[0](approximations[-1][0] + k1[0]/2, approximations[-1][1] + k1[1]/2), odes[1](approximations[-1][0] + k1[0]/2, approximations[-1][1] + k1[1]/2)])
         k3 = h*np.array([odes[0](approximations[-1][0] + k2[0]/2, approximations[-1][1] + k2[1]/2), odes[1](approximations[-1][0] + k2[0]/2, approximations[-1][1] + k2[1]/2)])
@@ -57,7 +58,7 @@ initial_conditions = [N1_0, N2_0]
 t0 = 0
 tmax = 30
 h = 0.005
-t = np.linspace(t0, tmax, int(tmax/h) +1)
+t = np.linspace(t0, tmax, int(tmax/h) + 1)
 
 # Resolviendo el sistema de ecuaciones diferenciales
 odes_n = [lambda N1, N2: dN1dt(N1, N2, r1_n, K1, alpha12), lambda N1, N2: dN2dt(N1, N2, r2, K2, alpha21)]
@@ -112,5 +113,44 @@ plt.yscale('symlog')
 plt.legend()
 
 
+plt.show()
+
+
+# gráficos variando el alpha12
+
+alpha12 = 5
+N1_0 = 100
+N2_0 = 100
+K1 = 200
+K2 = 200
+initial_conditions = [N1_0, N2_0]
+odes_02 = [lambda N1, N2: dN1dt(N1, N2, 0.1, K1, alpha12), lambda N1, N2: dN2dt(N1, N2, 0.1, K2, 1.5)]
+approximations_1 = rk4_for_ode_system(h, odes_02, initial_conditions, t0, tmax)
+
+alpha12 = 0
+N1_0 = 100
+N2_0 = 100
+initial_conditions = [N1_0, N2_0]
+odes_02 = [lambda N1, N2: dN1dt(N1, N2, 0.1, K1, alpha12), lambda N1, N2: dN2dt(N1, N2, 0.1, K2, alpha21)]
+approximations_2 = rk4_for_ode_system(h, odes_02, initial_conditions, t0, tmax)
+
+alpha12 = 1.5
+N1_0 = 100
+N2_0 = 100
+initial_conditions = [N1_0, N2_0]
+odes_02 = [lambda N1, N2: dN1dt(N1, N2, 0.1, K1, alpha12), lambda N1, N2: dN2dt(N1, N2, 0.1, K2, alpha21)]
+approximations_3 = rk4_for_ode_system(h, odes_02, initial_conditions, t0, tmax)
+
+
+plt.plot(t, approximations_1[:, 0],color='blue', label='N1 para alpha12 > alpha21')
+plt.plot(t, approximations_1[:, 1],color='lightblue', label='N2 para alpha12 > alpha21')
+plt.plot(t, approximations_2[:, 0], color='green', label='N1 para alpha12 < alpha21')
+plt.plot(t, approximations_2[:, 1],color='lightgreen', label='N2 para alpha12 < alpha21')
+plt.plot(t, approximations_3[:, 0],color='red', label='N1 para alpha12 = alpha21')
+plt.plot(t, approximations_3[:, 1],color='pink', label='N2 para alpha12 = alpha21')
+plt.xlabel('Tiempo')
+plt.ylabel('Población')
+plt.title('Variación de alpha12')
+plt.legend()
 plt.show()
 
