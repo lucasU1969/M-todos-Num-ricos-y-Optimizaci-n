@@ -67,7 +67,7 @@ alpha = 0.1
 beta = 0.1
 q = 0.1
 t0 = 0
-tmax = 5
+tmax = 100
 h = 0.01
 
 colores = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w', 'orange', 'purple']
@@ -76,8 +76,8 @@ for r in r_values:
     odes = [lambda N, P : dNdt(N, P, r, alpha), lambda N, P : dPdt(N, P, beta, q)]
     initial_conditions = [N0, P0]
     approximations = rk4_for_ode_system(h, odes, initial_conditions, t0, tmax)
-    plt.plot(np.linspace(t0, tmax, int(tmax/h) + 1), approximations[:, 0], color = colores[iter], label=f'r = {r}')
-    plt.plot(np.linspace(t0, tmax, int(tmax/h) + 1), approximations[:, 1], color = colores[iter])
+    plt.plot(np.linspace(t0, tmax, int(tmax/h)), approximations[:, 0], color = colores[iter], label=f'r = {r}')
+    plt.plot(np.linspace(t0, tmax, int(tmax/h)), approximations[:, 1], color = colores[iter])
     iter += 1
 plt.xlabel('Tiempo')
 plt.ylabel('Población')

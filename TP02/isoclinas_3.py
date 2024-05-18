@@ -60,144 +60,144 @@ def rk4_for_ode_system(h:float, odes:list, initial_conditions:list, t0:float, tm
         t += h
     return approximations
 # Definir parámetros genéricos
-r = 0.1  # Tasa de crecimiento de las presas
-alpha = 0.02  # Tasa de depredación de las presas por los predadores
+r = 2  # Tasa de crecimiento de las presas
+alpha = 0.5  # Tasa de depredación de las presas por los predadores
 beta1 = 0.4  # Tasa de crecimiento de los predadores
-q1 = 0.8  # Tasa de mortalidad de los predadores
+q1 = 2  # Tasa de mortalidad de los predadores
 K1 = 10  # Capacidad de carga del ecosistema
 # Generar valores de N
-N = np.linspace(0, 20, 200)
-P = np.linspace(0, 20, 200)
+N = np.linspace(0, 100, 200)
+P = np.linspace(0, 100, 200)
 
 beta2 = 0.5
-q2 = 8
+q2 = 5
 K2 = 5
 
-initial_conditions1 = [10, 5]
-initial_conditions2 = [18, 15]
+initial_conditions1 = [10, 12]
+initial_conditions2 = [8, 9]
 initial_conditions3 = [2, 10]
 initial_conditions4 = [8, 8]
 initial_conditions5 = [5, 5]
 initial_conditions6 = [1, 9]
-initial_conditions7 = [5, 2]
-initial_conditions8 = [7, 1]
+initial_conditions7 = [10, 6]
+initial_conditions8 = [5, 12]
 
-h = 0.1
+h = 0.05
 t0 = 0
-tmax = 100
+tmax = 5
 
 # Calcular las isoclinas para cada caso
 case1_P, case1_N = isocline_case1(N, r, alpha, beta1, q1)
 case1_P_ext, case1_N_ext = isocline_extendido(r, N, K1, alpha, q1, beta1)
 case2_P_ext, case2_N_ext = isocline_extendido(r, N, K2, alpha, q2, beta2)
 
-# Graficar los cuatro casos en gráficos separados
-plt.figure(figsize=(14, 10))
-plt.gca().spines['top'].set_visible(False)
-plt.gca().spines['right'].set_visible(False)
-# Caso 1: P = r/alpha y N = q1/beta1
+# # Graficar los cuatro casos en gráficos separados
+# plt.figure(figsize=(14, 10))
+# plt.gca().spines['top'].set_visible(False)
+# plt.gca().spines['right'].set_visible(False)
+# # Caso 1: P = r/alpha y N = q1/beta1
 
-X, Y = np.meshgrid(np.linspace(0, 10, 10), np.linspace(0, 10, 10))
-U , V = velocidad_isocline(X, Y, r, alpha, beta1, q1)
-plt.streamplot(X, Y, U, V, color='black')
+# X, Y = np.meshgrid(np.linspace(0, 15, 15), np.linspace(0, 15, 15))
+# U , V = velocidad_isocline(X, Y, r, alpha, beta1, q1)
+# plt.streamplot(X, Y, U, V, color='black')
 
-for i in range(0, 50):
-    for j in range(0, 50):
-        U_norm = (r*i - alpha*i*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
-        V_norm = (beta1*i*j - q1*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
-        plt.quiver([i], [j], U_norm, V_norm, color='pink')
+# for i in range(0, 15):
+#     for j in range(0, 15):
+#         U_norm = (r*i - alpha*i*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
+#         V_norm = (beta1*i*j - q1*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
+#         plt.quiver([i], [j], U_norm, V_norm, color='pink', width = 0.005, alpha = 0.4)
 
-odes = [lambda N, P : dNdt(N, P, r, alpha), lambda N, P : dPdt(N, P, beta1, q1)]
-trayectorias1_kmenor = rk4_for_ode_system(h, odes, initial_conditions7, t0, tmax)
-trayectorias2_kmenor = rk4_for_ode_system(h, odes, initial_conditions8, t0, tmax)
-trayectorias3_kmenor = rk4_for_ode_system(h, odes, initial_conditions4, t0, tmax)
-plt.plot(trayectorias1_kmenor[:, 0], trayectorias1_kmenor[:, 1], linewidth = 3)
-plt.plot(trayectorias2_kmenor[:, 0], trayectorias2_kmenor[:, 1], linewidth = 3)
-plt.plot(trayectorias3_kmenor[:, 0], trayectorias3_kmenor[:, 1], linewidth = 3)
-plt.scatter(initial_conditions7[0], initial_conditions7[1], color='black', label='Condiciones iniciales', zorder = 2)
-plt.scatter(initial_conditions8[0], initial_conditions8[1], color='black', zorder = 2)
-plt.scatter(initial_conditions4[0], initial_conditions4[1], color='black', zorder = 2)
+# odes = [lambda N, P : dNdt(N, P, r, alpha), lambda N, P : dPdt(N, P, beta1, q1)]
+# trayectorias1_kmenor = rk4_for_ode_system(h, odes, initial_conditions7, t0, tmax)
+# trayectorias2_kmenor = rk4_for_ode_system(h, odes, initial_conditions8, t0, tmax)
+# trayectorias3_kmenor = rk4_for_ode_system(h, odes, initial_conditions4, t0, tmax)
+# plt.plot(trayectorias1_kmenor[:, 0], trayectorias1_kmenor[:, 1], color =  "#00CED1", linewidth = 2)
+# plt.plot(trayectorias2_kmenor[:, 0], trayectorias2_kmenor[:, 1], color =  "#7CCD7C", linewidth =2)
+# plt.plot(trayectorias3_kmenor[:, 0], trayectorias3_kmenor[:, 1], color = "#9370DB", linewidth = 2)
+# plt.scatter(initial_conditions7[0], initial_conditions7[1], color='black', label='Condiciones iniciales', zorder = 3)
+# plt.scatter(initial_conditions8[0], initial_conditions8[1], color='black', zorder = 3)
+# plt.scatter(initial_conditions4[0], initial_conditions4[1], color='black', zorder = 3)
 
-plt.xlim(0, 10)
-plt.ylim(0, 10)
-plt.plot(N, case1_P, color = 'red', label=r'Isocline de $P = \frac{r}{\alpha}$')
-plt.plot(case1_N, N, color = 'blue', label=r'Isocline de $N = \frac{q1}{\beta1}$')
-plt.scatter(case1_N, case1_P, color='green', label='Punto de intersección', zorder = 3)
-plt.scatter(K1, 0, label = 'K1 = 10', color = 'purple', zorder = 3)
-plt.xlabel('N (Presas)')
-plt.ylabel('P (Predadores)')
-plt.title('Caso 1')
-plt.legend()
-plt.xlim(0, None)
-plt.ylim(0, None)
-plt.text(-1, 5, r'$P = \frac{r}{\alpha}$', fontsize=12, ha='center')
-plt.text(10, -1.5, r'$N = \frac{q1}{\beta1}$' , fontsize=12, ha='center')
-plt.xticks([])
-plt.yticks([])
-plt.grid(True)
-plt.show()
+# plt.xlim(0, 15)
+# plt.ylim(0, 15)
+# plt.plot(N, case1_P, color = 'red', label=r'Isocline de $P = \frac{r}{\alpha}$')
+# plt.plot(case1_N, N, color = 'blue', label=r'Isocline de $N = \frac{q1}{\beta1}$')
+# plt.scatter(case1_N, case1_P, color='green', label='Punto de intersección', zorder = 4)
+# # plt.scatter(K1, 0, label = 'K1 = 10', color = 'purple', zorder = 3)
+# plt.xlabel('N (Presas)')
+# plt.ylabel('P (Predadores)')
+# plt.title('Caso 1')
+# plt.legend()
+# plt.xlim(0, None)
+# plt.ylim(0, None)
+# plt.text(-1, 5, r'$P = \frac{r}{\alpha}$', fontsize=12, ha='center')
+# plt.text(7.5, -1.5, r'$N = \frac{q1}{\beta1}$' , fontsize=12, ha='center')
+# plt.xticks([])
+# plt.yticks([])
+# plt.grid(True)
+# plt.show()
 
-#Grafico caso 1 extendido
-plt.figure(figsize=(14, 10))
-plt.gca().spines['top'].set_visible(False)
-plt.gca().spines['right'].set_visible(False)
-# Caso 1: P = r/alpha y N = q1/beta1
-X, Y = np.meshgrid(np.linspace(0, 10, 20), np.linspace(0, 10, 20))
-U , V = velocidad_isocline_extendido(X, Y, r, alpha, beta1, q1, K1)
+# #Grafico caso 1 extendido
+# plt.figure(figsize=(14, 10))
+# plt.gca().spines['top'].set_visible(False)
+# plt.gca().spines['right'].set_visible(False)
+# # Caso 1: P = r/alpha y N = q1/beta1
+# X, Y = np.meshgrid(np.linspace(0, 10, 10), np.linspace(0, 10, 10))
+# U , V = velocidad_isocline_extendido(X, Y, r, alpha, beta1, q1, K1)
 
-# Trazar las líneas de flujo
-plt.streamplot(X, Y, U, V, color='black')
-for i in range(0, 20):
-    for j in range(0, 20):
-        U_norm = (r*i - alpha*i*j - (r*i**2)/K1) / np.sqrt((r*i - alpha*i*j - (r*i**2)/K1)**2 + (beta1*i*j - q1*j)**2)
-        V_norm = (beta1*i*j - q1*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
-        plt.quiver([i], [j], U_norm, V_norm, color='pink', scale=35)
+# # Trazar las líneas de flujo
+# plt.streamplot(X, Y, U, V, color='black')
+# for i in range(0, 20):
+#     for j in range(0, 20):
+#         U_norm = (r*i - alpha*i*j - (r*i**2)/K1) / np.sqrt((r*i - alpha*i*j - (r*i**2)/K1)**2 + (beta1*i*j - q1*j)**2)
+#         V_norm = (beta1*i*j - q1*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta1*i*j - q1*j)**2)
+#         plt.quiver([i], [j], U_norm, V_norm, color='pink', scale=35)
 
-odes_extendido = [lambda N, P : dNdt_extendido(N, P, r, alpha, K1), lambda N, P : dPdt_extendido(N, P, beta1, q1)]
-trayectorias1_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions4, t0, 1000)
-trayectorias2_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions5, t0, 1000)
-trayectorias3_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions6, t0, 1000)
-plt.plot(trayectorias1_kmenor[:, 0], trayectorias1_kmenor[:, 1], linewidth = 3)
-plt.plot(trayectorias2_kmenor[:, 0], trayectorias2_kmenor[:, 1], linewidth = 3)
-plt.plot(trayectorias3_kmenor[:, 0], trayectorias3_kmenor[:, 1], linewidth = 3)
-plt.scatter(initial_conditions4[0], initial_conditions4[1], color='black', label='Condiciones iniciales', zorder = 2)
-plt.scatter(initial_conditions5[0], initial_conditions5[1], color='black', zorder = 2)
-plt.scatter(initial_conditions6[0], initial_conditions6[1], color='black', zorder = 2)
+# odes_extendido = [lambda N, P : dNdt_extendido(N, P, r, alpha, K1), lambda N, P : dPdt_extendido(N, P, beta1, q1)]
+# trayectorias1_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions4, t0, 1000)
+# trayectorias2_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions5, t0, 1000)
+# trayectorias3_kmenor = rk4_for_ode_system(h, odes_extendido, initial_conditions6, t0, 1000)
+# plt.plot(trayectorias1_kmenor[:, 0], trayectorias1_kmenor[:, 1], color =  "#00CED1", linewidth = 2)
+# plt.plot(trayectorias2_kmenor[:, 0], trayectorias2_kmenor[:, 1], color =  "#7CCD7C", linewidth = 2)
+# plt.plot(trayectorias3_kmenor[:, 0], trayectorias3_kmenor[:, 1], color = "#9370DB", linewidth = 2)
+# plt.scatter(initial_conditions4[0], initial_conditions4[1], color='black', label='Condiciones iniciales', zorder = 2)
+# plt.scatter(initial_conditions5[0], initial_conditions5[1], color='black', zorder = 2)
+# plt.scatter(initial_conditions6[0], initial_conditions6[1], color='black', zorder = 2)
 
-plt.xlim(0, 10)
-plt.ylim(0, 10)
-plt.scatter((q1 / beta1) * np.ones_like(N), (r / alpha) * (1 - (q1/beta1)/K1) * np.ones_like(N), color='green', label='Punto de intersección', zorder = 3)
-plt.plot(N, case1_P_ext, color = 'red', label=r'Isocline de $P = \frac{r}{\alpha}(1 - \frac{N}{K})$')
-plt.plot(case1_N_ext, N, color = 'blue', label=r'Isocline de $N = \frac{q1}{\beta1}$')
-plt.scatter(K1, 0, label = 'K1 = 10', color = 'purple', zorder = 3)
-plt.xlabel('N (Presas)')
-plt.ylabel('P (Predadores)')
-plt.title('Caso 1 Extendido')
-plt.legend()
-plt.xlim(0, None)
-plt.ylim(0, None)
-plt.text(-1, 5, r'$P = \frac{r}{\alpha}(1 - \frac{N}{K})$', fontsize=12, ha='center')
-plt.text(10, -1.5, r'$N = \frac{q1}{\beta1}$' , fontsize=12, ha='center')
-plt.xticks([])
-plt.yticks([])
-plt.grid(True)
-plt.show()
+# plt.xlim(0, 10)
+# plt.ylim(0, 10)
+# plt.scatter((q1 / beta1) * np.ones_like(N), (r / alpha) * (1 - (q1/beta1)/K1) * np.ones_like(N), color='green', label='Punto de intersección', zorder = 3)
+# plt.plot(N, case1_P_ext, color = 'red', label=r'Isocline de $P = \frac{r}{\alpha}(1 - \frac{N}{K})$')
+# plt.plot(case1_N_ext, N, color = 'blue', label=r'Isocline de $N = \frac{q1}{\beta1}$')
+# # plt.scatter(K1, 0, label = 'K1 = 10', color = 'purple', zorder = 3)
+# plt.xlabel('N (Presas)')
+# plt.ylabel('P (Predadores)')
+# plt.title('Caso 1 Extendido')
+# plt.legend()
+# plt.xlim(0, None)
+# plt.ylim(0, None)
+# plt.text(-1, 5, r'$P = \frac{r}{\alpha}(1 - \frac{N}{K})$', fontsize=12, ha='center')
+# plt.text(5, -1, r'$N = \frac{q1}{\beta1}$' , fontsize=12, ha='center')
+# plt.xticks([])
+# plt.yticks([])
+# plt.grid(True)
+# plt.show()
 
 #Grafico caso 2 extendido
 plt.figure(figsize=(14, 10))
 plt.gca().spines['top'].set_visible(False)
 plt.gca().spines['right'].set_visible(False)
 # Caso 1: P = r/alpha y N = q1/beta1
-X, Y = np.meshgrid(np.linspace(0, 20, 10), np.linspace(0, 20, 10))
+X, Y = np.meshgrid(np.linspace(0, 20, 2), np.linspace(0, 20, 10))
 U , V = velocidad_isocline_extendido(X, Y, r, alpha, beta2, q2, K2)
 
 # Trazar las líneas de flujo
-plt.streamplot(X, Y, U, V, color='black')
+plt.streamplot(X, Y, U, V, color='black', arrowsize=2, density=1.5)
 for i in range(0, 20):
     for j in range(0, 20):
         U_norm = (r*i - alpha*i*j - (r*i**2)/K2) / np.sqrt((r*i - alpha*i*j - (r*i**2)/K2)**2 + (beta2*i*j - q2*j)**2)
         V_norm = (beta2*i*j - q2*j) / np.sqrt((r*i - alpha*i*j)**2 + (beta2*i*j - q2*j)**2)
-        plt.quiver([i], [j], U_norm, V_norm, color='pink')
+        plt.quiver([i], [j], U_norm, V_norm, color='pink', width = 0.005, alpha = 0.4)
 
 
 odes_extendido = [lambda N, P : dNdt_extendido(N, P, r, alpha, K2), lambda N, P : dPdt_extendido(N, P, beta2, q2)]
@@ -236,6 +236,6 @@ plt.tight_layout()
 
 plt.show()
 
-# Definir parámetros y condiciones iniciales
+# # Definir parámetros y condiciones iniciales
 
-# Definir parámetros y condiciones iniciales
+# # Definir parámetros y condiciones iniciales

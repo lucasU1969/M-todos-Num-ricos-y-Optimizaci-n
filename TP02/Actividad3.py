@@ -61,15 +61,14 @@ def rk4_for_ode_system(h:float, odes:list, initial_conditions:list, t0:float, tm
 
 # Parámetros y condiciones iniciales
 r1 = 0.5
-q = 0.3
+q = 4
 alpha = 0.1
-beta = 0.3
-K = 20  # Capacidad de carga para la competencia intraespecífica de las presas
-
-N0 = q/beta + 1  # Condiciones iniciales para N (presas
-P0 = r1/alpha + 1
+beta = 0.5
+K = 5  # Capacidad de carga para la competencia intraespecífica de las presas
+N0 = q/beta  # Condiciones iniciales para N (presas
+P0 = (r1/alpha)*(1-N0/K)  # Condiciones iniciales para P (depredadores)
 t0 = 0
-tmax = 100
+tmax = 10
 h = 0.1
 
 odes = [lambda N, P : dNdt(N, P, r1, alpha), lambda N, P : dPdt(N, P, beta, q)]
@@ -97,6 +96,7 @@ P_values_extendido = approximations_extendido[:, 1]
 plt.figure(figsize=(10, 6))
 plt.plot(t_values_extendido, N_values_extendido, label='Población N (extendida)')
 plt.plot(t_values_extendido, P_values_extendido, label='Población P (extendida)')
+plt.scatter(0, K, zorder = 3)
 plt.xlabel('Tiempo')
 plt.ylabel('Población')
 plt.title('Evolución de las poblaciones N y P (extendidas) en el tiempo')
