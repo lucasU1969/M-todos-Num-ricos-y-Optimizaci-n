@@ -1,0 +1,88 @@
+% Actividad 1
+% El objetivo es caracterizar las soluciones de las ecuaciones diferenciales exponenciales y logísticas, y
+% comparar las soluciones numéricas con las exactas.
+% Comiencen obteniendo la solución logística exacta. Luego utilizando la solución exponencial y logística
+% exacta grafiquen el tamaño poblacional en función del tiempo (N vs t) y la variación poblacional en función
+% del tamaño poblacional (dN
+% dt vs N). En ambos casos utilicen distintos valores de los parámetros (N0, r y K)
+% de forma que cubran todos los casos posibles. Tengan en cuenta que N0,K ∈ R ≥ 0 y r ∈ R. Comparen los
+% gráficos de ambos modelos y concluyan las características de cada uno. Determinen si la ecuación logística
+% tiene algún punto de equilibrio (donde dN
+% dt = 0). Analicen el significado del valor de K para la dinámica del
+% problema.
+% Por otro lado, obtengan las soluciones numéricas de ambas ecuaciones por los métodos vistos y comparen
+% con las soluciones exactas. Determine qué método reprodujo mejor la solución analítica. Esto es importante
+% porque luego veremos ecuaciones de las cuales no podremos obtener su solución analítica.
+
+
+
+\documentclass[12pt, letterpaper]{report}
+\usepackage{graphicx} % Required for inserting images
+\graphicspath{images/}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{lipsum} % Para generar texto de ejemplo
+\usepackage{appendix}
+
+
+% Establecer márgenes
+\geometry{margin=2cm}
+
+\begin{document}
+
+\renewcommand{\thesection}{\normalsize \Roman {section}}
+\titleformat{\section}
+  {\normalsize\bfseries}{\thesection}{1em}{}
+\normalsize
+
+
+
+{\normalsize \textbf{Métodos Numéricos y Optimización: Trabajo Práctico II}}
+
+{\normalsize {Abril Gerbazoni y Lucas Romano Abdo}}
+
+{\normalsize 29 de Marzo de 2024}
+\section{Resumen}
+
+
+\section{Introduction}
+En este trabajo, empleamos ecuaciones diferenciales para modelar el crecimiento poblacional en diversos ecosistemas. Exploraremos distintos tipos de hábitats, ya que el crecimiento de una población está influenciado por una amplia gama de factores, y nuestro objetivo es que nuestro modelo refleje de manera precisa la complejidad de la realidad.
+
+Nos preguntaremos cómo varía la población cuando los recursos son escasos, si la tasa de crecimiento disminuye cuando múltiples especies compiten por los mismos recursos, y si el tamaño finito del ecosistema afecta al crecimiento. También nos adentraremos en dinámicas de depredador-presa, explorando cómo afecta esta relación al crecimiento de las poblaciones involucradas.
+
+Además, nos cuestionaremos si es posible modelar el crecimiento de dos especies que interactúan entre sí en un mismo ecosistema. Estas interrogantes servirán como guía para nuestro análisis, el cual se apoyará en la representación visual mediante gráficos para ofrecer una comprensión más clara y detallada de los fenómenos estudiados.
+
+\section{\normalsize Métodos preexistentes}
+
+En esta sección presentaremos los métodos númericos que han sido utilizados a lo largo de este trabajo. Los hemos utilizado para aproximar la solución exponencial y la solución logística de nuestras odes
+\begin{itemize}
+    \item Método de Euler
+    El método de Euler es una técnica numérica utilizada para resolver ecuaciones diferenciales ordinarias de primer orden. Consiste en aproximarse a la solución de una ecuación diferencial dividiendo el intervalo de tiempo en pequeños pasos y calculando la evolución de la función paso a paso.
+
+    En cada paso, partimos de un punto inicial y usamos la derivada de la función en ese punto para predecir su valor en el siguiente paso. Este proceso se repite a lo largo del intervalo de tiempo deseado hasta llegar al punto final.
+    \item Método de Runge-Kutta de orden II
+    El método de Runge-Kutta de orden II es una técnica numérica utilizada para resolver ecuaciones diferenciales ordinarias de primer orden. Es una extensión del método de Euler que mejora la precisión de la aproximación al considerar la derivada en el punto medio del intervalo de tiempo.
+    \item Método de Runge-Kutta de orden IV
+    El método de Runge-Kutta de orden IV es una técnica numérica utilizada para resolver ecuaciones diferenciales ordinarias de primer orden. Es una extensión del método de Euler que mejora la precisión de la aproximación al considerar la derivada en varios puntos intermedios del intervalo de tiempo.
+\end{itemize}
+
+\section{Experimentos Numéricos}
+% %en esta seccion voy a describir como vamos a
+% realizar los experimentos, que hiperpar´ametros usamos,
+% que condiciones computacionales y como pensamos
+% comparar y evaluar los resultados de cada m´etodo.
+\subsection*{Primer Experimento}%en esta subseccion voy a comparar las aproximaciones y los errores de los metodos de Euler, Runge-Kutta de orden II y Runge-Kutta de orden IV para la ecuacion diferencial exponencial. Tambien hablare sobre como afectan los parametros
+
+Para el primer experimento tomaremos la ecuación diferencial exponencial y la resolveremos con los métodos de Euler, Runge-Kutta de orden II y Runge-Kutta de orden IV. Luego compararemos los resultados obtenidos con la solución exacta de la ecuación diferencial.
+Luego realizaremos el mismo procedimiento con la ecuación diferencial logística.
+Analizaremos los resultados de nuestras aproximaciones y compararemos los métodos utilizados para determinar cuál de ellos se ajusta mejor a la solución exacta.
+Probaremos distintos valores de los parámetros de las ecuaciones para evaluar cómo afectan al comportamiento de las soluciones y cómo se reflejan en los resultados obtenidos por los métodos numéricos.
+Finalmente, compararemos las soluciones exponenciales y logísticas para determinar cuál de ellas se ajusta mejor a los datos y qué características de cada modelo las hacen más adecuadas para diferentes situaciones.
+Para finalizar, analizaremos la estabilidad de los puntos de equilibrio de la ecuación logística, buscaremos en que puntos nuestro
+\subsection*{Segundo Experimento}%en esta subseccion voy a analizar la estabilidad de los puntos de equilibrio de la ecuacion logistica y el papel que juega k
+\subsubsection*{Tercer Experimento}%en esta subseccion voy a enforcarme en hablar sobre las odes y analizar sus parametros
+
+\end{document}
